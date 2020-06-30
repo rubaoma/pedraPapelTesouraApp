@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import java.util.Random;
 
@@ -31,17 +32,17 @@ public class MainActivity extends AppCompatActivity {
         this.opcaoSelecionada("tesoura");
     }
 
-    public void opcaoSelecionada( String opcaoSelecionada){
+    public void opcaoSelecionada( String escolhaUsuario){
 
         ImageView imagemResultado = findViewById(R.id.imageResultado);
-
+        TextView textoResultado = findViewById(R.id.textResultado);
         //criar um numero randomico
         int numero = new Random().nextInt(3); //0 1 2 Randomico
         String[] opcoes = {"pedra", "papel", "tesoura"}; // array de opções
-        String opcaoApp = opcoes[ numero ]; // recebe o numero aleatorio
+        String escolhaApp = opcoes[ numero ]; // recebe o numero aleatorio
 
         // de acordo com o numero escolhido pelo app irá aparecer a imagem correspodente na tela mostrando a escolha do app.
-        switch ( opcaoApp ){
+        switch ( escolhaApp ){
             case "pedra" :
                 imagemResultado.setImageResource(R.drawable.pedra);
                 break;
@@ -53,8 +54,29 @@ public class MainActivity extends AppCompatActivity {
                 break;
         }
 
+        if (
+                (escolhaApp == "pedra" && escolhaUsuario == "tesoura") ||
+                (escolhaApp == "papel" && escolhaUsuario == "pedra") ||
+                (escolhaApp == "tesoura" && escolhaUsuario == "papel")
 
-        System.out.println("Item clicado: " + opcaoApp );
+        ){ // app ganhador
+
+            textoResultado.setText("Você perdeu :( ");
+
+        }else if (
+                (escolhaUsuario == "pedra" && escolhaApp == "tesoura") ||
+                (escolhaUsuario == "papel" && escolhaApp == "pedra") ||
+                (escolhaUsuario == "tesoura" && escolhaApp == "papel")
+        ){ // usuario ganhador
+
+            textoResultado.setText("Você ganhou :) ");
+
+        }else{
+
+            textoResultado.setText("Empatamos ;) ");
+        }
+
+        System.out.println("Item clicado: " + escolhaApp );
     }
 
 
